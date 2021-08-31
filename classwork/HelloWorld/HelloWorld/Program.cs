@@ -1,7 +1,7 @@
 ﻿/*
  *Jett Smith
  *ITSE 1430 Fall 2021
-*/
+ */
 using System;
 
 namespace HelloWorld
