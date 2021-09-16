@@ -56,19 +56,24 @@ namespace MovieLibrary.ConsoleHost
         }
         static void ViewMovie()
         {
-            Console.WriteLine(title);
-            Console.WriteLine(releaseYear);
-            Console.WriteLine(runLength);
-            Console.WriteLine(rating);
-            Console.WriteLine(isClassic);
+            if(String.IsNullOrEmpty(title))
+            {
+                Console.WriteLine("No movie available");
+                return;
+            };
+
+            Console.WriteLine($"{title} ({releaseYear})");
+            Console.WriteLine($"Runtime: {runLength} mins");
+            Console.WriteLine($"MPAA Rating: {rating}");
+            Console.WriteLine($"Classic? {isClassic}");
             Console.WriteLine(description);
         }
         static void DeleteMovie()
         {
             if (!ReadBoolean("Are you sure(Y/N)? "))
                 return;
-            //TODO: delete movie
-            Console.WriteLine("Not implemented");
+
+            title = null;
         }
         private static int ReadInt32 ( string message, int minimumValue)
         {
@@ -93,9 +98,12 @@ namespace MovieLibrary.ConsoleHost
 
             do
             {
-                string input = Console.ReadLine();
-                
-                return input;
+                string input = Console.ReadLine().Trim();
+
+                if (!String.IsNullOrEmpty(input) || !required)
+                    return input;
+
+                DisplayError("Value is required");
             } while (true);
         }
         static void DisplayError(string message)
@@ -127,7 +135,8 @@ namespace MovieLibrary.ConsoleHost
         static char GetInput()
         {
             Console.WriteLine("   Move Library");
-            Console.WriteLine("------------------");
+            //Console.WriteLine("------------------");
+            Console.WriteLine("".PadLeft(15, '-'));
 
             Console.WriteLine("A) Add");
             Console.WriteLine("D) Delete");
@@ -137,7 +146,7 @@ namespace MovieLibrary.ConsoleHost
             //TODO: Input validation
             while (true)
             {
-                string input = Console.ReadLine();
+                string input = Console.ReadLine().Trim();
 
                 //if (input == "Q")
                 //    return 'Q';
@@ -148,16 +157,17 @@ namespace MovieLibrary.ConsoleHost
                 //else if (input == "D")
                 //    return 'D';
 
-                switch (input)
+                switch (input.ToUpper())
                 {
-                    case "q":
+                    //case "q":
                     case "Q": return 'Q';
-                    case "a":
+                    //case "a": 
                     case "A": return 'A';
-                    case "v":
+                    //case "v":
                     case "V": return 'V';
-                    case "d":
+                    //case "d":
                     case "D": return 'D';
+                    //default:;
                 };
 
                 DisplayError("Invalid input");
