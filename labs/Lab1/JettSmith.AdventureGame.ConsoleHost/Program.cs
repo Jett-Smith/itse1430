@@ -41,7 +41,7 @@ namespace JettSmith.AdventureGame.ConsoleHost
             do
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("What do you wish to do? ");
+                Console.Write("What do you wish to do?(Inspect|Move|Help|Quit) ");
                 Console.ResetColor();
 
                 string choice = Console.ReadLine();
@@ -88,7 +88,7 @@ namespace JettSmith.AdventureGame.ConsoleHost
             while(true)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("Which direction do you wish to go? ");
+                Console.Write("Which direction do you wish to go?(North|South|East|West|Help) ");
                 Console.ResetColor();
 
                 string direction = Console.ReadLine();
