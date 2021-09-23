@@ -33,20 +33,32 @@ namespace MovieLibrary.ConsoleHost
                 };
             } while (!done);
         }
-        
-        static Movie movie = new Movie();
+
+        static Movie movie;
         static void AddMovie ()
         {
-            movie.title = ReadString("Enter the movie title: ", true);
-            movie.description = ReadString("Enter the optional description: ", false);
-            movie.runLength = ReadInt32("Enter runtime(in minutes): ", 0);
-            movie.releaseYear = ReadInt32("Enter the release year(min 1900): ", 1900);
-            movie.rating = ReadString("Enter the MPAA rating: ", false);
-            movie.isClassic = ReadBoolean("Is this a classic (Y/N)? ");
+            var newMovie = new Movie();
+
+            do
+            {
+                newMovie.title = ReadString("Enter the movie title: ", true);
+                newMovie.description = ReadString("Enter the optional description: ", false);
+                newMovie.runLength = ReadInt32("Enter runtime(in minutes): ", 0);
+                newMovie.releaseYear = ReadInt32($"Enter the release year(min {movie.MinimumReleaseYear}): ", newMovie.MinimumReleaseYear);
+                newMovie.rating = ReadString("Enter the MPAA rating: ", false);
+                newMovie.isClassic = ReadBoolean("Is this a classic (Y/N)? ");
+
+                var error = movie.Validate();
+                if (String.IsNullOrEmpty(error))
+                {
+                    movie = newMovie;
+                    return;
+                }
+            } while (true);
         }
         static void ViewMovie()
         {
-            if(String.IsNullOrEmpty(movie.title))
+            if(movie == null)
             {
                 Console.WriteLine("No movie available");
                 return;
@@ -60,11 +72,18 @@ namespace MovieLibrary.ConsoleHost
         }
         static void DeleteMovie()
         {
+            if (movie == null)
+                return;
+
             if (!ReadBoolean("Are you sure(Y/N)? "))
                 return;
 
-            movie.title = null;
+            movie = null;
         }
+        /// <summary>Reads an Int32 from the console</summary>
+        /// <param name="message">The message to display</param>
+        /// <param name="minimumValue">The minimum value allowed</param>
+        /// <returns>The integral value that was entered</returns>
         private static int ReadInt32 ( string message, int minimumValue)
         {
             Console.Write(message);
@@ -126,7 +145,6 @@ namespace MovieLibrary.ConsoleHost
         static char GetInput()
         {
             Console.WriteLine("   Move Library");
-            //Console.WriteLine("------------------");
             Console.WriteLine("".PadLeft(15, '-'));
 
             Console.WriteLine("A) Add");
@@ -134,31 +152,16 @@ namespace MovieLibrary.ConsoleHost
             Console.WriteLine("V) View");
             Console.WriteLine("Q) Quit");
 
-            //TODO: Input validation
             while (true)
             {
                 string input = Console.ReadLine().Trim();
 
-                //if (input == "Q")
-                //    return 'Q';
-                //else if (input == "A")
-                //    return 'A';
-                //else if (input == "V")
-                //    return 'V';
-                //else if (input == "D")
-                //    return 'D';
-
                 switch (input.ToUpper())
                 {
-                    //case "q":
                     case "Q": return 'Q';
-                    //case "a": 
                     case "A": return 'A';
-                    //case "v":
                     case "V": return 'V';
-                    //case "d":
                     case "D": return 'D';
-                    //default:;
                 };
 
                 DisplayError("Invalid input");
