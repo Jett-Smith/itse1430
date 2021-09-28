@@ -41,12 +41,12 @@ namespace MovieLibrary.ConsoleHost
 
             do
             {
-                newMovie.title = ReadString("Enter the movie title: ", true);
-                newMovie.description = ReadString("Enter the optional description: ", false);
-                newMovie.runLength = ReadInt32("Enter runtime(in minutes): ", 0);
-                newMovie.releaseYear = ReadInt32($"Enter the release year(min {movie.MinimumReleaseYear}): ", newMovie.MinimumReleaseYear);
-                newMovie.rating = ReadString("Enter the MPAA rating: ", false);
-                newMovie.isClassic = ReadBoolean("Is this a classic (Y/N)? ");
+                newMovie.Title = ReadString("Enter the movie title: ", true);
+                newMovie.Description = ReadString("Enter the optional description: ", false);
+                newMovie.RunLength = ReadInt32("Enter runtime(in minutes): ", 0);
+                newMovie.ReleaseYear = ReadInt32($"Enter the release year(min {Movie.MinimumReleaseYear}): ", Movie.MinimumReleaseYear);
+                newMovie.Rating = ReadString("Enter the MPAA rating: ", false);
+                newMovie.IsClassic = ReadBoolean("Is this a classic (Y/N)? ");
 
                 var error = movie.Validate();
                 if (String.IsNullOrEmpty(error))
@@ -64,11 +64,14 @@ namespace MovieLibrary.ConsoleHost
                 return;
             };
 
-            Console.WriteLine($"{movie.title} ({movie.releaseYear})");
-            Console.WriteLine($"Runtime: {movie.runLength} mins");
-            Console.WriteLine($"MPAA Rating: {movie.rating}");
-            Console.WriteLine($"Classic? {movie.isClassic}");
-            Console.WriteLine(movie.description);
+            Console.WriteLine($"{movie.Title} ({movie.ReleaseYear})");
+            Console.WriteLine($"Runtime: {movie.RunLength} mins");
+            Console.WriteLine($"MPAA Rating: {movie.Rating}");
+            Console.WriteLine($"Classic? {movie.IsClassic}");
+            Console.WriteLine(movie.Description);
+
+            if (movie.AgeInYears >= 25)
+                Console.WriteLine($"{movie.AgeInYears}th Anniversary");
         }
         static void DeleteMovie()
         {
