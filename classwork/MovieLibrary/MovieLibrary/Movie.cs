@@ -10,8 +10,23 @@ namespace MovieLibrary
         /// <summary>Gets or sets the titile</summary>
         public string Title
         {
-            get { return (_title != null) ? _title : ""; }
-            set { _title = (value != null) ? value.Trim() : null; }
+            //null-coalesce ::= E ?? E (returns the first non-null value)
+            //null conditional ::= E?.M (returns M?) changes the type of the expression
+            get 
+            {
+                
+                
+                return _title ?? "";
+                //return (_title != null) ? _title : ""; 
+            }
+            set 
+            {
+                _title = value?.Trim();
+                //_title = (value != null) ? value.Trim() : null;
+
+                //Movie m;
+                //int id = m?.Id ?? 0; //int?
+            }
         }
         /// <summary>Gets or sets the description</summary>
         public string Description
