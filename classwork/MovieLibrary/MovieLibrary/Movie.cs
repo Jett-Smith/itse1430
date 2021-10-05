@@ -5,6 +5,29 @@ namespace MovieLibrary
     /// <summary>Represents a movie.</summary>
     public class Movie
     {
+        //Constructors (Demo Only)
+        //Default constructor
+        //public Movie ()
+        //{ }
+        //
+        //public Movie ( string title ) : this(0, title)
+        //{
+        //    //Initialize(title);
+        //    //Title = title;
+        //}
+        //
+        //public Movie ( int id, string title )
+        //{
+        //    Id = id;
+        //    //Initialize(title);
+        //    Title = title;
+        //}
+        //
+        //Shared init but dangerous to use
+        //private void Initialize ( string title )
+        //{
+        //    Title = title;
+        //}
         public int Id { get; private set; }
 
         /// <summary>Gets or sets the titile</summary>
