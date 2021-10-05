@@ -57,7 +57,7 @@ namespace JettSmith.CharacterCreator.ConsoleHost
                 newCharacter.Name = ReadString("Enter your Character's name: ", true);
                 newCharacter.Class = ChooseClass();
                 newCharacter.Race = ChooseRace();
-                newCharacter.Biography = ReadString("Enter your Character's Biography (optional):", false);
+                newCharacter.Biography = ReadString("Enter your Character's Biography (optional): ", false);
                 newCharacter.Strength = ReadInt32("Enter your Character's Strength: ", 1, 100);
                 newCharacter.Intelligence = ReadInt32("Enter your Character's Intelligence: ", 1, 100);
                 newCharacter.Agility = ReadInt32("Enter your Character's Agility: ", 1, 100);
@@ -80,7 +80,7 @@ namespace JettSmith.CharacterCreator.ConsoleHost
             {
                 string characterClass = ReadString("What Class is your Character\n(Cleric, Bard, Fighter, Rogue, or Wizard): ", true);
                 if (characterClass.ToUpper().Equals("CLERIC") || characterClass.ToUpper().Equals("BARD") || characterClass.ToUpper().Equals("FIGHTER") || characterClass.ToUpper().Equals("ROGUE") || characterClass.ToUpper().Equals("WIZARD"))
-                    return characterClass;
+                    return characterClass.ToUpper();
                 DisplayError("Please choose one of the Class Options");
             } while (true);
         }
@@ -91,7 +91,7 @@ namespace JettSmith.CharacterCreator.ConsoleHost
             {
                 string characterRace = ReadString("What Race is your Character\n(Dragonborn, Dwarf, Elf, Human, or Kobold): ", true);
                 if (characterRace.ToUpper().Equals("DRAGONBORN") || characterRace.ToUpper().Equals("DWARF") || characterRace.ToUpper().Equals("ELF") || characterRace.ToUpper().Equals("HUMAN") || characterRace.ToUpper().Equals("KOBOLD"))
-                    return characterRace;
+                    return characterRace.ToUpper();
                 DisplayError("Please choose one of the Race Options");
             } while (true);
         }
@@ -105,15 +105,17 @@ namespace JettSmith.CharacterCreator.ConsoleHost
             }
 
             Console.Clear();
-            Console.WriteLine(character.Name.PadLeft(character.Name.Length / 2 + character.Name.Length));
-            Console.WriteLine("".PadLeft(character.Name.Length * 2, '-'));
-            Console.WriteLine("Class: " + character.Class);
-            Console.WriteLine("Race: " + character.Race);
-            Console.WriteLine("Strength: " + character.Strength);
-            Console.WriteLine("Intelligence: " + character.Intelligence);
-            Console.WriteLine("Agility: " + character.Agility);
-            Console.WriteLine("Constitution: " + character.Constitution);
-            Console.WriteLine("Charisma: " + character.Charisma);
+            Console.WriteLine(character.Name);
+            Console.WriteLine("".PadLeft(14 + ((character.Class.Length > character.Race.Length) ? character.Class.Length : character.Race.Length), '-'));
+            Console.WriteLine("Class: ".PadRight(14) + character.Class);
+            Console.WriteLine("Race: ".PadRight(14) + character.Race);
+            Console.WriteLine("Strength: ".PadRight(14) + character.Strength);
+            Console.WriteLine("Intelligence: ".PadRight(14) + character.Intelligence);
+            Console.WriteLine("Agility: ".PadRight(14) + character.Agility);
+            Console.WriteLine("Constitution: ".PadRight(14) + character.Constitution);
+            Console.WriteLine("Charisma: ".PadRight(14) + character.Charisma);
+            Console.WriteLine("");
+            Console.WriteLine("Biography: " + character.Biography);
         }
 
         static void EditCharacter ()

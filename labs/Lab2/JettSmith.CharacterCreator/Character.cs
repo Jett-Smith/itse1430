@@ -58,15 +58,15 @@ namespace JettSmith.CharacterCreator
                 return "Class is required";
             if (String.IsNullOrEmpty(Race))
                 return "Race is required";
-            if (Strength < 1 && Strength > 100)
+            if (Strength < 1 || Strength > 100)
                 return "Strength must be between 1 and 100";
-            if (Intelligence < 1 && Intelligence > 100)
+            if (Intelligence < 1 || Intelligence > 100)
                 return "Intelligence must be between 1 and 100";
-            if (Agility < 1 && Agility > 100)
+            if (Agility < 1 || Agility > 100)
                 return "Agility must be between 1 and 100";
-            if (Constitution < 1 && Constitution > 100)
+            if (Constitution < 1 || Constitution > 100)
                 return "Constitution must be between 1 and 100";
-            if (Charisma < 1 && Charisma > 100)
+            if (Charisma < 1 || Charisma > 100)
                 return "Charisma must be between 1 and 100";
             return null;
         }
