@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieLibrary.ConsoleHost", "MovieLibrary.ConsoleHost\MovieLibrary.ConsoleHost.csproj", "{352B450A-DAA4-4C83-A969-011210A91F29}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieLibrary", "MovieLibrary\MovieLibrary.csproj", "{53A0C1D2-F20E-4779-80AE-BA03B19B78E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InheritanceDemo", "InheritanceDemo\InheritanceDemo.csproj", "{4D74F3FF-79F0-44A7-B01E-55A9F7FA93CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibrary.WinHost", "MovieLibrary.WinHost\MovieLibrary.WinHost.csproj", "{FF0AA373-B369-4716-8E47-B6EE0F2C772C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{352B450A-DAA4-4C83-A969-011210A91F29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{352B450A-DAA4-4C83-A969-011210A91F29}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{352B450A-DAA4-4C83-A969-011210A91F29}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{352B450A-DAA4-4C83-A969-011210A91F29}.Release|Any CPU.Build.0 = Release|Any CPU
 		{53A0C1D2-F20E-4779-80AE-BA03B19B78E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{53A0C1D2-F20E-4779-80AE-BA03B19B78E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53A0C1D2-F20E-4779-80AE-BA03B19B78E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53A0C1D2-F20E-4779-80AE-BA03B19B78E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4D74F3FF-79F0-44A7-B01E-55A9F7FA93CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4D74F3FF-79F0-44A7-B01E-55A9F7FA93CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4D74F3FF-79F0-44A7-B01E-55A9F7FA93CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4D74F3FF-79F0-44A7-B01E-55A9F7FA93CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF0AA373-B369-4716-8E47-B6EE0F2C772C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF0AA373-B369-4716-8E47-B6EE0F2C772C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF0AA373-B369-4716-8E47-B6EE0F2C772C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF0AA373-B369-4716-8E47-B6EE0F2C772C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
