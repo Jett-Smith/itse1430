@@ -5,21 +5,28 @@ namespace MovieLibrary.WinHost
 {
     public partial class MainForm : Form
     {
-        private MenuStrip menuStrip2;
-        private ToolStripMenuItem aboutToolStripMenuItem;
-
-        public MainForm ()
+        public MainForm()
         {
             InitializeComponent();
+
+            //Additional init here
+            //Runs at design time as well - be careful
         }
 
         private void OnFileExit ( object sender, EventArgs e )
         {
             //Confirm exit?
-            if (!Confirm("Do you want to quit ? ", "Confirm ? "))
+            if (!Confirm("Do you want to quit?", "Confirm"))
                 return;
 
             Close();
+        }
+
+        private static bool Confirm ( string message, string title )
+        {
+            return MessageBox.Show(message, title,
+                                   MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                        == DialogResult.Yes;
         }
 
         private void OnHelpAbout ( object sender, EventArgs e )
@@ -28,7 +35,7 @@ namespace MovieLibrary.WinHost
 
             //Blocks until child form is closed
             dlg.ShowDialog();
-            
+
             //Show displays modeless, not blocking
             //dlg.Show();
             //MessageBox.Show("After Show");
@@ -38,36 +45,48 @@ namespace MovieLibrary.WinHost
         {
             var dlg = new MovieForm();
 
-            dlg.ShowDialog();
+            //ShowDialog -> DialogResult
+            if (dlg.ShowDialog() != DialogResult.OK)
+                return;
+
+            //TODO: Save movie
+            MessageBox.Show("Save Movie");
+            _movie = dlg.Movie;
+            UpdateUI();
         }
 
-        private static bool Confirm ( string message, string title )
+        private void OnMovieEdit ( object sender, EventArgs e )
         {
-            return MessageBox.Show(message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+            if (_movie == null)
+                return;
+
+            var dlg = new MovieForm();
+            dlg.Movie = _movie;
+
+            //ShowDialog -> DialogResult
+            if (dlg.ShowDialog() != DialogResult.OK)
+                return;
+
+            //TODO: Save movie
+            MessageBox.Show("Save Movie");
+            _movie = dlg.Movie;
+            UpdateUI();
         }
 
-        private void InitializeComponent ()
-        {
-            this.menuStrip2 = new System.Windows.Forms.MenuStrip();
-            this.SuspendLayout();
-            // 
-            // menuStrip2
-            // 
-            this.menuStrip2.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(284, 24);
-            this.menuStrip2.TabIndex = 0;
-            this.menuStrip2.Text = "menuStrip2";
-            // 
-            // MainForm
-            // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.menuStrip2);
-            this.MainMenuStrip = this.menuStrip2;
-            this.Name = "MainForm";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+        private Movie _movie;
 
+        private void UpdateUI ()
+        {
+            //Update movie list
+            var movies = (_movie != null) ? new Movie[1] : new Movie[0];
+            if (_movie != null)
+                movies[0] = _movie;
+
+            var bindingSource = new BindingSource();
+            bindingSource.DataSource = movies;
+
+            //bind the movies to the listbox
+            _listMovies.DataSource = bindingSource;
         }
     }
 }

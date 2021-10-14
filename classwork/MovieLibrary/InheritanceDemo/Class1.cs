@@ -7,7 +7,7 @@ namespace InheritanceDemo
         public Point Origin { get; set; }
 
         public abstract void Draw ();
-
+        
         public virtual void DisplayText ()
         {
             Console.WriteLine("Shape");
@@ -22,13 +22,14 @@ namespace InheritanceDemo
 
             var circle = new Circle();
             circle.Radius = 10;
+
             list.Shape1 = circle;
 
             var rect = new Rectangle();
             rect.TopLeft = new Point(10, 10);
             rect.BottomRight = new Point(100, 100);
 
-            list.Shape2 = rect;
+            list.Shape2 = rect;            
         }
 
         public Shape Shape1 { get; set; }
@@ -52,24 +53,24 @@ namespace InheritanceDemo
         public int Radius { get; set; }
 
         public override void Draw ()
-        {
+        { 
             //Draw a circle
         }
 
         public override void DisplayText ()
         {
-            Console.WriteLine("Cicle");
+            Console.WriteLine("Circle");
         }
     }
 
-    public class Rectangle : Shape
+    public class Rectangle: Shape
     {
         public Point TopLeft { get; set; }
         public Point BottomRight { get; set; }
 
         public override void Draw ()
         {
-            //Draw a rectangle
+            //Draw rectangle
         }
     }
 }
