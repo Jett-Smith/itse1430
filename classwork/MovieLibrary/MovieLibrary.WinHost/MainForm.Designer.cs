@@ -50,7 +50,7 @@ namespace MovieLibrary.WinHost
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(591, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(560, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -83,7 +83,7 @@ namespace MovieLibrary.WinHost
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
             this.addToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Insert;
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.addToolStripMenuItem.Text = "&Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.OnMovieAdd);
             // 
@@ -91,7 +91,7 @@ namespace MovieLibrary.WinHost
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Insert)));
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.editToolStripMenuItem.Text = "&Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.OnMovieEdit);
             // 
@@ -99,7 +99,7 @@ namespace MovieLibrary.WinHost
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             this.deleteToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.deleteToolStripMenuItem.Text = "&Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.OnMovieDelete);
             // 
@@ -120,18 +120,19 @@ namespace MovieLibrary.WinHost
             // 
             // _listMovies
             // 
+            this._listMovies.Dock = System.Windows.Forms.DockStyle.Fill;
             this._listMovies.FormattingEnabled = true;
             this._listMovies.ItemHeight = 15;
-            this._listMovies.Location = new System.Drawing.Point(12, 27);
+            this._listMovies.Location = new System.Drawing.Point(0, 24);
             this._listMovies.Name = "_listMovies";
-            this._listMovies.Size = new System.Drawing.Size(567, 334);
+            this._listMovies.Size = new System.Drawing.Size(560, 343);
             this._listMovies.TabIndex = 1;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(591, 371);
+            this.ClientSize = new System.Drawing.Size(560, 367);
             this.Controls.Add(this._listMovies);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;

@@ -200,6 +200,10 @@ namespace MovieLibrary
             if (ReleaseYear < MinimumReleaseYear)
                 return "Release Year must be at least " + MinimumReleaseYear;
 
+            //Rating is required
+            if (String.IsNullOrEmpty(Rating)) // this.title            
+                return "Rating is required";
+
             return null;
         }
 
