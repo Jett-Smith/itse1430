@@ -4,7 +4,7 @@
  */
 using System;
 
-namespace JettSmith.CharacterCreator
+namespace JettSmith.AdventureGame
 {
     public class Character
     {
@@ -51,6 +51,11 @@ namespace JettSmith.CharacterCreator
         private string _class;
         private string _race;
         private string _biography;
+
+        public override string ToString()
+        {
+            return $"{Name} ({Race} - {Class})";
+        }
 
         /// <summary>Validates the Character</summary>
         /// <returns>An error if there is one</returns>
