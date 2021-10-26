@@ -38,7 +38,7 @@ namespace MovieLibrary
 
         //Mixed accessibility - one accessor may be more restrictive
         //public int Id { get; private set; }
-        public int Id { get; } //private set ;
+        public int Id { get; set; } 
 
         // Properties - methods with field-like syntax, exposes data
         //   Property has a type and name
@@ -164,9 +164,10 @@ namespace MovieLibrary
 
         /// <summary>Copies the movie.</summary>
         /// <returns>A copy of the movie.</returns>
-        public Movie Copy ()
+        public Movie Clone ()
         {
             var movie = new Movie();
+            movie.Id = Id;
             movie.Title = Title;
             movie.Description = Description;
             movie.RunLength = RunLength;
