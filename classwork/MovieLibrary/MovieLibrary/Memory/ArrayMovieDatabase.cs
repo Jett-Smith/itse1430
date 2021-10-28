@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieLibrary
+namespace MovieLibrary.Memory
 {
-    public class MovieDatabase
+    internal class ArrayMovieDatabase
     {
         //Arrays are always open in C#
         //Array size is specified at the point of creation
         private Movie[] _items = new Movie[100];
 
-        public MovieDatabase ()
+        public ArrayMovieDatabase ()
         {
             //TODO: Seed
             //Object initializer - creating and initializing new object
