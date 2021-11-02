@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MovieLibrary.Memory
 {
-    public class MemoryMovieDatabase
+    public class MemoryMovieDatabase : IMovieDatabase
     {
         //Dynamically resizing array
         private List<Movie> _items = new List<Movie>();
@@ -14,7 +14,35 @@ namespace MovieLibrary.Memory
 
         public MemoryMovieDatabase ()
         {
-            //TODO: Seed
+            //Collection initializer syntax
+            var movies = new[]
+            {
+                new Movie() {
+                    Title = "Jaws",
+                    Rating = "PG",
+                    RunLength = 210,
+                    ReleaseYear = 1977,
+                    Description = "Shark movie",
+                    Id = _nextId++,
+                },
+                new Movie() {
+                    Title = "Dune",
+                    Rating = "PG",
+                    RunLength = 300,
+                    ReleaseYear = 1982,
+                    Id = _nextId++,
+                },
+                new Movie() {
+                    Title = "Jaws 2",
+                    Rating = "PG-13",
+                    RunLength = 190,
+                    ReleaseYear = 1979,
+                    Description = "Shark movie",
+                    Id = _nextId++,
+                },
+            };
+
+            _items.AddRange(movies);
             //Object initializer - creating and initializing new object
             //movie = new Movie() {
             //    Title = "Jaws 2",
@@ -26,35 +54,35 @@ namespace MovieLibrary.Memory
             //};
             //item[2] = movie;
 
-            _items.Add(new Movie() {
-                Title = "Jaws",
-                Rating = "PG",
-                RunLength = 210,
-                ReleaseYear = 1977,
-                Description = "Shark movie",
-                Id = _nextId++,
-            });
+            //_items.Add(new Movie() {
+            //    Title = "Jaws",
+            //    Rating = "PG",
+            //    RunLength = 210,
+            //    ReleaseYear = 1977,
+            //    Description = "Shark movie",
+            //    Id = _nextId++,
+            //});
 
-            _items.Add(new Movie() {
-                Title = "Dune",
-                Rating = "PG",
-                RunLength = 300,
-                ReleaseYear = 1982,
-                Id = _nextId++,
-            });
+            //_items.Add(new Movie() {
+            //    Title = "Dune",
+            //    Rating = "PG",
+            //    RunLength = 300,
+            //    ReleaseYear = 1982,
+            //    Id = _nextId++,
+            //});
 
-            _items.Add(new Movie() {
-                Title = "Jaws 2",
-                Rating = "PG-13",
-                RunLength = 190,
-                ReleaseYear = 1979,
-                Description = "Shark movie",
-                Id = _nextId++,
-            });
+            //_items.Add(new Movie() {
+            //    Title = "Jaws 2",
+            //    Rating = "PG-13",
+            //    RunLength = 190,
+            //    ReleaseYear = 1979,
+            //    Description = "Shark movie",
+            //    Id = _nextId++,
+            //});
         }
 
         //TODO: Error handling
-        public Movie Add (Movie movie, out string error)
+        public Movie Add ( Movie movie, out string error )
         {
             //Movie must be valid
             error = movie.Validate();
@@ -99,7 +127,7 @@ namespace MovieLibrary.Memory
             return null;
         }
 
-        private void Copy ( Movie target, Movie source)
+        private void Copy ( Movie target, Movie source )
         {
             target.Title = source.Title;
             target.Description = source.Description;
@@ -110,7 +138,7 @@ namespace MovieLibrary.Memory
         }
 
         //TODO: Update
-        public string Update ( int id, Movie movie)
+        public string Update ( int id, Movie movie )
         {
             //Movie must be valid
             var error = movie.Validate();
@@ -167,5 +195,8 @@ namespace MovieLibrary.Memory
 
             return items;
         }
+
+        public void IsOnlyAvialableInMemoryMovieDatabase () 
+        { }
     }
 }

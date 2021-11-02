@@ -6,7 +6,7 @@ namespace MovieLibrary.WinHost
 {
     public partial class MainForm : Form
     {
-        private MemoryMovieDatabase _movies = new MemoryMovieDatabase();
+        private IMovieDatabase _movies = new MemoryMovieDatabase();
         
         public MainForm()
         {
