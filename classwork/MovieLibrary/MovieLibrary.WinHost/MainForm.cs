@@ -1,4 +1,7 @@
-﻿using System;
+﻿// ITSE 1420
+// Movie Library
+
+using System;
 using System.Windows.Forms;
 using MovieLibrary.Memory;
 
@@ -117,7 +120,7 @@ namespace MovieLibrary.WinHost
         private void UpdateUI ()
         {
             //Update movie list
-            Movie[] movies = _movies.GetAll();
+            var movies = _movies.GetAll();
 
             var bindingSource = new BindingSource();
             bindingSource.DataSource = movies;

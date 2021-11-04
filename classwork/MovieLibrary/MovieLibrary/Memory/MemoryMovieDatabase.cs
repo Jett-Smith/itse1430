@@ -1,5 +1,9 @@
-﻿using System;
+﻿// ITSE 1420
+// Movie Library
+
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -85,8 +89,8 @@ namespace MovieLibrary.Memory
         public Movie Add ( Movie movie, out string error )
         {
             //Movie must be valid
-            error = movie.Validate();
-            if (!String.IsNullOrEmpty(error))
+            var validator = new ObjectValidator();
+            if (!validator.TryValidate(movie, out error))
                 return null;
 
             //Movie title must be unique
@@ -141,8 +145,8 @@ namespace MovieLibrary.Memory
         public string Update ( int id, Movie movie )
         {
             //Movie must be valid
-            var error = movie.Validate();
-            if (!String.IsNullOrEmpty(error))
+            var validator = new ObjectValidator();
+            if (!validator.TryValidate(movie, out var error))
                 return error;
 
             //Movie must exist
@@ -181,19 +185,29 @@ namespace MovieLibrary.Memory
         }
 
         //TODO: Get All
-        public Movie[] GetAll ()
+        public IEnumerable<Movie> GetAll ()
         {
             //NEVER DO THIS - should not return a ref type directly
             //return _items;
-            var items = new Movie[_items.Count];
 
-            var index = 0;
+            int counter = 0;
+            //Use iterator syntax
             foreach (var item in _items)
             {
-                items[index++] = item.Clone();
+                ++counter;
+                yield return item.Clone();
             }
 
-            return items;
+
+            //var items = new Movie[_items.Count];
+
+            //var index = 0;
+            //foreach (var item in _items)
+            //{
+            //    items[index++] = item.Clone();
+            //}
+
+            //return items;
         }
 
         public void IsOnlyAvialableInMemoryMovieDatabase () 

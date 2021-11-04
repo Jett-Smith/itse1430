@@ -1,4 +1,9 @@
-﻿using System;
+﻿// ITSE 1420
+// Movie Library
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MovieLibrary
 {
@@ -8,7 +13,7 @@ namespace MovieLibrary
     // 3. Noun - because they represent an object/entity in your system
 
     /// <summary>Represents a movie.</summary>
-    public class Movie
+    public class Movie : IValidatableObject
     {
         #region Constructors (demo only)
 
@@ -186,26 +191,32 @@ namespace MovieLibrary
 
         /// <summary>Validates the object.</summary>
         /// <returns>The error, if any.</returns>
-        public string Validate ( /* Movie this */ )
+        public IEnumerable<ValidationResult> Validate ( ValidationContext validationContext )
         {
+            var errors = new List<ValidationResult>();
+
             //Title is required
             if (String.IsNullOrEmpty(Title)) // this.title            
-                return "Title is required";
+                //return "Title is required";
+                errors.Add(new ValidationResult("Title is required", new[] { nameof(Title) }));
 
             //Run length >= 0
             //if (this.runLength < 0)
             if (RunLength < 0)
-                return "Run Length must be at least zero";
+                //return "Run Length must be at least zero";
+                errors.Add(new ValidationResult("Run Length must be at least zero", new[] { nameof(RunLength) }));
 
             //Release year >= 1900            
             if (ReleaseYear < MinimumReleaseYear)
-                return "Release Year must be at least " + MinimumReleaseYear;
+                //return "Release Year must be at least " + MinimumReleaseYear;
+                errors.Add(new ValidationResult("Release Year must be at least" + MinimumReleaseYear, new[] { nameof(ReleaseYear) }));
 
             //Rating is required
             if (String.IsNullOrEmpty(Rating)) // this.title            
-                return "Rating is required";
+                //return "Rating is required";
+                errors.Add(new ValidationResult("Rating is required", new[] { nameof(Rating) }));
 
-            return null;
+            return errors;
         }
 
         private void SetDescriptionToTitle ()
