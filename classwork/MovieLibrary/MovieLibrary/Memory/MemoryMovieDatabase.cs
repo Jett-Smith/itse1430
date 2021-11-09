@@ -16,81 +16,11 @@ namespace MovieLibrary.Memory
         private List<Movie> _items = new List<Movie>();
         private int _nextId = 1;
 
-        public MemoryMovieDatabase ()
-        {
-            //Collection initializer syntax
-            var movies = new[]
-            {
-                new Movie() {
-                    Title = "Jaws",
-                    Rating = "PG",
-                    RunLength = 210,
-                    ReleaseYear = 1977,
-                    Description = "Shark movie",
-                    Id = _nextId++,
-                },
-                new Movie() {
-                    Title = "Dune",
-                    Rating = "PG",
-                    RunLength = 300,
-                    ReleaseYear = 1982,
-                    Id = _nextId++,
-                },
-                new Movie() {
-                    Title = "Jaws 2",
-                    Rating = "PG-13",
-                    RunLength = 190,
-                    ReleaseYear = 1979,
-                    Description = "Shark movie",
-                    Id = _nextId++,
-                },
-            };
-
-            _items.AddRange(movies);
-            //Object initializer - creating and initializing new object
-            //movie = new Movie() {
-            //    Title = "Jaws 2",
-            //    Rating = "PG-13",
-            //    RunLength = 190,
-            //    ReleaseYear = 1979,
-            //    Description = "Shark movie",
-            //    Id = 3,
-            //};
-            //item[2] = movie;
-
-            //_items.Add(new Movie() {
-            //    Title = "Jaws",
-            //    Rating = "PG",
-            //    RunLength = 210,
-            //    ReleaseYear = 1977,
-            //    Description = "Shark movie",
-            //    Id = _nextId++,
-            //});
-
-            //_items.Add(new Movie() {
-            //    Title = "Dune",
-            //    Rating = "PG",
-            //    RunLength = 300,
-            //    ReleaseYear = 1982,
-            //    Id = _nextId++,
-            //});
-
-            //_items.Add(new Movie() {
-            //    Title = "Jaws 2",
-            //    Rating = "PG-13",
-            //    RunLength = 190,
-            //    ReleaseYear = 1979,
-            //    Description = "Shark movie",
-            //    Id = _nextId++,
-            //});
-        }
-
-        //TODO: Error handling
+        //Error handling
         public Movie Add ( Movie movie, out string error )
         {
             //Movie must be valid
-            var validator = new ObjectValidator();
-            if (!validator.TryValidate(movie, out error))
+            if (!ObjectValidator.TryValidate(movie, out error))
                 return null;
 
             //Movie title must be unique
@@ -141,12 +71,11 @@ namespace MovieLibrary.Memory
             target.IsClassic = source.IsClassic;
         }
 
-        //TODO: Update
+        //Update
         public string Update ( int id, Movie movie )
         {
             //Movie must be valid
-            var validator = new ObjectValidator();
-            if (!validator.TryValidate(movie, out var error))
+            if (!ObjectValidator.TryValidate(movie, out var error))
                 return error;
 
             //Movie must exist
@@ -167,7 +96,7 @@ namespace MovieLibrary.Memory
             return null;
         }
 
-        //TODO: Delete
+        //Delete
         public void Delete ( int id )
         {
             //TODO: Validate id
@@ -176,7 +105,7 @@ namespace MovieLibrary.Memory
                 _items.Remove(movie);
         }
 
-        //TODO: Get
+        //Get
         public Movie Get ( int id )
         {
             var movie = FindById(id);
@@ -184,17 +113,18 @@ namespace MovieLibrary.Memory
             return movie?.Clone();
         }
 
-        //TODO: Get All
+        //Get All
         public IEnumerable<Movie> GetAll ()
         {
             //NEVER DO THIS - should not return a ref type directly
             //return _items;
 
-            int counter = 0;
+            //int counter = 0;
             //Use iterator syntax
             foreach (var item in _items)
             {
-                ++counter;
+                //++counter;
+                System.Diagnostics.Debug.WriteLine($"Returning {item.Title}");
                 yield return item.Clone();
             }
 

@@ -2,6 +2,7 @@
 // Movie Library
 
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using MovieLibrary.Memory;
 
@@ -23,7 +24,7 @@ namespace MovieLibrary.WinHost
         {
             base.OnLoad(e);
 
-            UpdateUI();
+            UpdateUI(true);
         }
         private void OnFileExit ( object sender, EventArgs e )
         {
@@ -62,7 +63,7 @@ namespace MovieLibrary.WinHost
                 if (dlg.ShowDialog(this) != DialogResult.OK)
                     return;
 
-                //TODO: Save movie
+                //Save movie
                 if (_movies.Add(dlg.Movie, out var error) != null)
                     break;
                 DisplayError(error, "Add failed");
@@ -86,7 +87,7 @@ namespace MovieLibrary.WinHost
                 if (dlg.ShowDialog() != DialogResult.OK)
                     return;
 
-                //TODO: Error handling
+                //Error handling
                 var error = _movies.Update(movie.Id, dlg.Movie);
                 if (String.IsNullOrEmpty(error))
                     break;
@@ -117,13 +118,22 @@ namespace MovieLibrary.WinHost
             UpdateUI();
         }
 
-        private void UpdateUI ()
+        private void UpdateUI ( bool isFirstRun = false )
         {
             //Update movie list
             var movies = _movies.GetAll();
+            if (isFirstRun && !movies.Any())
+            {
+                if(Confirm("Do you want to seed the database", "Seed"))
+                {
+                    _movies.Seed();
+                    //SeedDatabase.Seed(_movies);
+                    movies = _movies.GetAll();
+                }
+            }
 
             var bindingSource = new BindingSource();
-            bindingSource.DataSource = movies;
+            bindingSource.DataSource = movies.ToArray();
 
             //bind the movies to the listbox
             _listMovies.DataSource = bindingSource;
