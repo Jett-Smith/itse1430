@@ -132,7 +132,13 @@ namespace MovieLibrary.WinHost
                 }
             }
 
+            //LINQ Syntax
+            movies = from x in movies
+                     orderby x.Title, x.ReleaseYear
+                     select x;
+
             var bindingSource = new BindingSource();
+            //bindingSource.DataSource = movies.OrderBy(x => x.Title).ThenBy(x => x.ReleaseYear).ToArray();
             bindingSource.DataSource = movies.ToArray();
 
             //bind the movies to the listbox
