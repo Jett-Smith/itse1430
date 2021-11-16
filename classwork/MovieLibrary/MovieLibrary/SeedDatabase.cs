@@ -35,7 +35,7 @@ namespace MovieLibrary
             };
 
             foreach (var movie in movies)
-                database.Add(movie, out var errors);
+                database.Add(movie);
         }
     }
 }
