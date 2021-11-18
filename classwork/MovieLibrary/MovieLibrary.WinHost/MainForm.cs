@@ -5,12 +5,13 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using MovieLibrary.Memory;
+using MovieLibrary.Sql;
 
 namespace MovieLibrary.WinHost
 {
     public partial class MainForm : Form
     {
-        private IMovieDatabase _movies = new MemoryMovieDatabase();
+        private IMovieDatabase _movies = new SqlMovieDatabase(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=MovieDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         
         public MainForm()
         {
