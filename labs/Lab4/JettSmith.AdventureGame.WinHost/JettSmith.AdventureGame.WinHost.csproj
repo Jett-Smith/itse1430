@@ -4,6 +4,9 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <Product>Adventure Game</Product>
+    <Company>JettSmith</Company>
+    <Description>ITSE 1430 Fall 2021</Description>
   </PropertyGroup>
 
   <ItemGroup>
