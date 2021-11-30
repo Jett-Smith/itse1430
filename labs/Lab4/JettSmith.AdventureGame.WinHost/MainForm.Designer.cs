@@ -165,15 +165,16 @@ namespace JettSmith.AdventureGame.WinHost
             // 
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
             this.helpToolStripMenuItem1.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(118, 22);
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.helpToolStripMenuItem1.Text = "&Help";
+            this.helpToolStripMenuItem1.Click += new System.EventHandler(this.OnHelpAbout);
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.37209F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 61.62791F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 224F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 227F));
             this.tableLayoutPanel1.Controls.Add(this._listCharacters, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this._lblDescription, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 0);
@@ -219,20 +220,20 @@ namespace JettSmith.AdventureGame.WinHost
             this.tableLayoutPanel2.Controls.Add(this._btnNorth, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this._btnSouth, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this._btnInventory, 1, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(198, 3);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(197, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(308, 237);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(306, 237);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
             // _btnWest
             // 
             this._btnWest.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this._btnWest.Location = new System.Drawing.Point(35, 136);
+            this._btnWest.Location = new System.Drawing.Point(34, 136);
             this._btnWest.Name = "_btnWest";
             this._btnWest.Size = new System.Drawing.Size(64, 22);
             this._btnWest.TabIndex = 3;
@@ -253,7 +254,7 @@ namespace JettSmith.AdventureGame.WinHost
             // _btnEast
             // 
             this._btnEast.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this._btnEast.Location = new System.Drawing.Point(207, 136);
+            this._btnEast.Location = new System.Drawing.Point(205, 136);
             this._btnEast.Name = "_btnEast";
             this._btnEast.Size = new System.Drawing.Size(74, 22);
             this._btnEast.TabIndex = 4;
@@ -264,7 +265,7 @@ namespace JettSmith.AdventureGame.WinHost
             // _btnNorth
             // 
             this._btnNorth.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this._btnNorth.Location = new System.Drawing.Point(120, 91);
+            this._btnNorth.Location = new System.Drawing.Point(118, 91);
             this._btnNorth.Name = "_btnNorth";
             this._btnNorth.Size = new System.Drawing.Size(66, 24);
             this._btnNorth.TabIndex = 2;
@@ -275,7 +276,7 @@ namespace JettSmith.AdventureGame.WinHost
             // _btnSouth
             // 
             this._btnSouth.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this._btnSouth.Location = new System.Drawing.Point(120, 180);
+            this._btnSouth.Location = new System.Drawing.Point(119, 180);
             this._btnSouth.Name = "_btnSouth";
             this._btnSouth.Size = new System.Drawing.Size(65, 23);
             this._btnSouth.TabIndex = 5;
@@ -287,7 +288,7 @@ namespace JettSmith.AdventureGame.WinHost
             // 
             this._btnInventory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel2.SetColumnSpan(this._btnInventory, 2);
-            this._btnInventory.Location = new System.Drawing.Point(206, 3);
+            this._btnInventory.Location = new System.Drawing.Point(204, 3);
             this._btnInventory.Name = "_btnInventory";
             this._btnInventory.Size = new System.Drawing.Size(99, 23);
             this._btnInventory.TabIndex = 1;
@@ -302,7 +303,7 @@ namespace JettSmith.AdventureGame.WinHost
             this.tableLayoutPanel3.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this._lblGoldCostAndWeight, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this._listInventory, 0, 2);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(512, 3);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(509, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 3;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 44.44444F));
