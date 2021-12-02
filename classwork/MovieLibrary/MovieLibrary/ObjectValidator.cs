@@ -12,17 +12,17 @@ namespace MovieLibrary
 {
     public static class ObjectValidator
     {
-        public static IEnumerable<ValidationResult> TryValidate (IValidatableObject instance)
+        public static IEnumerable<ValidationResult> TryValidate (object instance)
         {
             var errors = new List<ValidationResult>();
             var context = new ValidationContext(instance);
 
-            Validator.TryValidateObject(instance, context, errors);
+            Validator.TryValidateObject(instance, context, errors, true);
 
             return errors;
         }
 
-        public static bool TryValidate (IValidatableObject instacne, out string error )
+        public static bool TryValidate (object instacne, out string error )
         {
             var errors = TryValidate(instacne);
             error = errors.FirstOrDefault()?.ErrorMessage;
@@ -30,7 +30,7 @@ namespace MovieLibrary
             return String.IsNullOrEmpty(error);
         }
 
-        public static void Validate (IValidatableObject instance)
+        public static void Validate (object instance)
         {
             var context = new ValidationContext(instance);
             Validator.ValidateObject(instance, context, true);
