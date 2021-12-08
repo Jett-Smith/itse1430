@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
 
 namespace Nile.Stores.Sql
 {
@@ -13,11 +16,146 @@ namespace Nile.Stores.Sql
             _connectionString = connectionString;
         }
 
-        protected override Product AddCore ( Product product ) => throw new NotImplementedException();
-        protected override Product FindByName ( string name ) => throw new NotImplementedException();
-        protected override IEnumerable<Product> GetAllCore () => throw new NotImplementedException();
-        protected override Product GetCore ( int id ) => throw new NotImplementedException();
-        protected override void RemoveCore ( int id ) => throw new NotImplementedException();
-        protected override Product UpdateCore ( Product existing, Product newItem ) => throw new NotImplementedException();
+        protected override Product AddCore ( Product product )
+        {
+            using (var conn = OpenConnection())
+            {
+                var cmd = new SqlCommand("AddProduct", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@name", product.Name);
+                cmd.Parameters.AddWithValue("@price", product.Price);
+                cmd.Parameters.AddWithValue("@description", product.Description);
+                cmd.Parameters.AddWithValue("@isDiscontinued", product.IsDiscontinued);
+
+                //Get movie ID as result
+                object result = cmd.ExecuteScalar();
+                product.Id = Convert.ToInt32(result);
+            }
+
+            return product;
+        }
+
+        protected override Product FindByName ( string name )
+        {
+            using (var conn = OpenConnection())
+            {
+                var cmd = new SqlCommand("FindByName", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@name", name);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new Product() {
+                            Id = reader.GetFieldValue<int>("Id"),
+                            Name = reader.GetFieldValue<string>("Name"),
+                            Price = (decimal)reader.GetFieldValue<double>("Price"),
+                            IsDiscontinued = reader.GetFieldValue<bool>("IsDiscontinued"),
+                        };
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        protected override IEnumerable<Product> GetAllCore ()
+        {
+            var ds = new DataSet();
+
+            using (var conn = OpenConnection())
+            {
+                var cmd = new SqlCommand("GetProducts", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                var adapter = new SqlDataAdapter(cmd);
+                adapter.Fill(ds);
+            }
+
+            var table = ds.Tables.OfType<DataTable>().FirstOrDefault();
+            if (table != null)
+            {
+                foreach (var row in table.Rows.OfType<DataRow>())
+                {
+                    yield return new Product() {
+                        Id = row.Field<int>("Id"),
+                        Name = row.Field<string>("Name"),
+                        Price = (decimal)row.Field<double>("Price"),
+                        Description = row.Field<string>("Description"),
+                        IsDiscontinued = row.Field<bool>("IsDiscontinued"),
+                    };
+                }
+            }
+        }
+
+        protected override Product GetCore ( int id )
+        {
+            using (var conn = OpenConnection())
+            {
+                var cmd = new SqlCommand("GetProduct", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@id", id);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new Product() {
+                            Id = reader.GetFieldValue<int>("Id"),
+                            Name = reader.GetFieldValue<string>("Name"),
+                            Price = (decimal)reader.GetFieldValue<double>("Price"),
+                            Description = reader.GetFieldValue<string>("Description"),
+                            IsDiscontinued = reader.GetFieldValue<bool>("IsDiscontinued"),
+                        };
+                    }
+                }
+            }
+
+            return null;
+        }
+        
+        protected override void RemoveCore ( int id )
+        {
+            using (var conn = OpenConnection())
+            {
+                var cmd = new SqlCommand("DeleteProduct", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@id", id);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        protected override Product UpdateCore ( Product existing, Product newItem )
+        {
+            using (var conn = OpenConnection())
+            {
+                var cmd = new SqlCommand("UpdateProduct", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@id", newItem.Id);
+                cmd.Parameters.AddWithValue("@name", newItem.Name);
+                cmd.Parameters.AddWithValue("@price", newItem.Price);
+                cmd.Parameters.AddWithValue("@description", newItem.Description);
+                cmd.Parameters.AddWithValue("@isDiscontinued", newItem.IsDiscontinued);
+
+                cmd.ExecuteNonQuery();
+            }
+
+            return newItem;
+        }
+
+        private SqlConnection OpenConnection ()
+        {
+            var conn = new SqlConnection(_connectionString);
+            conn.Open();
+
+            return conn;
+        }
     }
 }
