@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * Jett Smith
+ * ITSE 1430
+ */
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;

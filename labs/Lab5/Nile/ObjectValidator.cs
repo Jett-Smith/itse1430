@@ -1,6 +1,7 @@
-﻿// ITSE 1420
-// Movie Library
-
+﻿/*
+ * Jett Smith
+ * ITSE 1430
+ */
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
