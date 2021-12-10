@@ -38,24 +38,18 @@ namespace Nile.Stores.Sql
 
         protected override Product FindByName ( string name )
         {
-            using (var conn = OpenConnection())
+            var products = GetAll();
+
+            foreach (Product product in products)
             {
-                var cmd = new SqlCommand("FindByName", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.AddWithValue("@name", name);
-
-                using (var reader = cmd.ExecuteReader())
+                if (product.Name.Equals(name))
                 {
-                    if (reader.Read())
-                    {
-                        return new Product() {
-                            Id = reader.GetFieldValue<int>("Id"),
-                            Name = reader.GetFieldValue<string>("Name"),
-                            Price = (decimal)reader.GetFieldValue<double>("Price"),
-                            IsDiscontinued = reader.GetFieldValue<bool>("IsDiscontinued"),
-                        };
-                    }
+                    return new Product {
+                        Id = product.Id,
+                        Name = product.Name,
+                        Price = product.Price,
+                        IsDiscontinued = product.IsDiscontinued,
+                    };
                 }
             }
 
@@ -68,7 +62,7 @@ namespace Nile.Stores.Sql
 
             using (var conn = OpenConnection())
             {
-                var cmd = new SqlCommand("GetProducts", conn);
+                var cmd = new SqlCommand("GetAllProducts", conn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                 var adapter = new SqlDataAdapter(cmd);
@@ -83,7 +77,7 @@ namespace Nile.Stores.Sql
                     yield return new Product() {
                         Id = row.Field<int>("Id"),
                         Name = row.Field<string>("Name"),
-                        Price = (decimal)row.Field<double>("Price"),
+                        Price = row.Field<decimal>("Price"),
                         Description = row.Field<string>("Description"),
                         IsDiscontinued = row.Field<bool>("IsDiscontinued"),
                     };
@@ -107,7 +101,7 @@ namespace Nile.Stores.Sql
                         return new Product() {
                             Id = reader.GetFieldValue<int>("Id"),
                             Name = reader.GetFieldValue<string>("Name"),
-                            Price = (decimal)reader.GetFieldValue<double>("Price"),
+                            Price = reader.GetFieldValue<decimal>("Price"),
                             Description = reader.GetFieldValue<string>("Description"),
                             IsDiscontinued = reader.GetFieldValue<bool>("IsDiscontinued"),
                         };
@@ -138,7 +132,7 @@ namespace Nile.Stores.Sql
                 var cmd = new SqlCommand("UpdateProduct", conn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("@id", newItem.Id);
+                cmd.Parameters.AddWithValue("@id", existing.Id);
                 cmd.Parameters.AddWithValue("@name", newItem.Name);
                 cmd.Parameters.AddWithValue("@price", newItem.Price);
                 cmd.Parameters.AddWithValue("@description", newItem.Description);

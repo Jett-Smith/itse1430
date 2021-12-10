@@ -2,8 +2,11 @@
  * ITSE 1430
  */
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Extensions.Configuration;
+
+using Nile.Stores.Sql;
 
 namespace Nile.Windows
 {
@@ -14,6 +17,7 @@ namespace Nile.Windows
         public MainForm()
         {
             InitializeComponent();
+            _database = new SqlProductDatabase(GetConnectionString("ProductDatabase"));
         }
         #endregion
 
@@ -171,7 +175,7 @@ namespace Nile.Windows
         {
             try
             {
-                _bsProducts.DataSource = _database.GetAll();
+                _bsProducts.DataSource = _database.GetAll().OrderBy(x => x.Name);
             } catch (Exception ex)
             {
                 DisplayError(ex.Message, "Retrival Failed");
@@ -179,11 +183,11 @@ namespace Nile.Windows
         }
 
         private string GetConnectionString ( string name )
-                => Program.Configuration.GetConnectionString(name);        
+                => Program.Configuration.GetConnectionString(name);
 
-        private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
+        private readonly IProductDatabase _database;
         #endregion
 
-        
+
     }
 }
